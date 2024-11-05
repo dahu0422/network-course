@@ -1,0 +1,24 @@
+@import "abstracts/variables";
+
+@import "components/button";
+
+@import "base/animations";
+@import "base/typography";
+
+@import "layout/header";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: inherit;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; /* 16px * 62.5% = 10px = 1rem  */
+}
+
+body {
+  box-sizing: border-box;
+}

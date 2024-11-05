@@ -1,0 +1,35 @@
+body {
+  /* 优先使用 Lato 字体，如果用户系统中没有该字体，使用通用字体 sans-serif */
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  // font-size: 1.6rem;
+  line-height: 1.7; // 文本行高是字体的 1.7 倍
+  color: $color-gray-dark;
+  padding: 3rem;
+}
+
+.heading-primary {
+  color: $color-while;
+  text-transform: uppercase;
+  margin-bottom: 6rem;
+  &--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.6rem;
+
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+  }
+  &--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 1.8rem;
+
+    animation-name: moveInRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+  }
+}
