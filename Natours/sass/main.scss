@@ -2,30 +2,15 @@
 @import "abstracts/mixins";
 @import "abstracts/variables";
 
-@import "components/button";
-@import "components/composition";
-
 @import "base/animations";
+@import "base/base";
 @import "base/typography";
 @import "base/utilities";
+
+@import "components/button";
+@import "components/composition";
 
 @import "layout/header";
 @import "layout/grid";
 
 @import "pages/home";
-
-*,
-*::before,
-*::after {
-  margin: 0;
-  box-sizing: inherit;
-  padding: 0;
-}
-
-html {
-  font-size: 62.5%; /* 16px * 62.5% = 10px = 1rem  */
-}
-
-body {
-  box-sizing: border-box;
-}

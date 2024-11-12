@@ -28,7 +28,7 @@
     &:hover {
       transform: scale(1.05) ranslateY(-0.5rem);
       box-shadow: 0 2.5rem 4rem rgba($color-black, 0.5);
-      outline: 1.5rem solid $color-primary;
+      outline: 0.75rem solid $color-primary;
       z-index: 20;
     }
   }
