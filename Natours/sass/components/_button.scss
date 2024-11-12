@@ -23,10 +23,10 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   }
   &--white {
-    background-color: $color-while;
-    color: $color-gray-dark;
+    background-color: $color-white;
+    color: $color-grey-dark;
     &::after {
-      background-color: $color-while;
+      background-color: $color-white;
     }
   }
 
@@ -45,5 +45,30 @@
   }
   &--animated {
     animation: moveInBottom 0.5s ease-out 0.6s backwards;
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    display: inline-block;
+    padding: 3px;
+    border-bottom: 1px solid $color-primary;
+    font-size: $default-font-size;
+    color: $color-primary;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    transform: translateY(0);
   }
 }
