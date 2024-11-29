@@ -54,7 +54,7 @@
 }
 
 .book {
-  height: 50rem;
+  // height: 50rem;
   border-radius: 3px;
   background-size: 100%;
   // 渐变角度、渐变从 0% ~ 50% 时是白色，从 50% ～ 100% 是透明的
@@ -62,8 +62,27 @@
     url(../img/nat-10.jpg);
   box-shadow: 0 1.5rem 4rem rgba($color-black, 0.2);
 
+  @include respond(tab-land) {
+    background-image: linear-gradient(105deg, rgba($color-white, 0.9) 0%, rgba($color-white, 0.9) 65%, transparent 65%),
+      url(../img/nat-10.jpg);
+    background-size: cover;
+  }
+
+  @include respond(tab-port) {
+    background-image: linear-gradient(to right, rgba($color-white, 0.9) 0%, rgba($color-white, 0.9) 100%),
+      url(../img/nat-10.jpg);
+  }
+
   &__form {
     width: 50%;
     padding: 6rem;
+
+    @include respond(tab-land) {
+      width: 65%;
+    }
+
+    @include respond(tab-port) {
+      width: 100%;
+    }
   }
 }
