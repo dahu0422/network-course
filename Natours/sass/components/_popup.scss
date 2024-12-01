@@ -10,6 +10,13 @@
   visibility: hidden;
   transition: all 0.3s;
 
+  // 检查浏览器是否支持 backdrop-filter 属性，如果支持，则应用相应的样式。
+  @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.3);
+  }
+
   &__content {
     @include absCenter;
     overflow: hidden;
