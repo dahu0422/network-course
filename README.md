@@ -85,3 +85,13 @@ CSS 通常的来源有：Author 开发人员编写、User 用户自定义、Brow
 `source`元素：media 属性用于指定媒体查询条件，srcset 属性用于指定不同的图像源。
 
 `img`元素：作为后备，当不满足 source 元素的媒体查询条件或浏览器不支持 source 元素时，使用 img 元素的 src 属性指定图像源。
+
+## Flex Box
+
+### Flex Box Concepte
+
+![flex box concept](./images/flexbox-concepts.png)
+
+### Flex Box Properties
+
+![flex box properties](./images/flexbox-properties.png)
