@@ -95,3 +95,19 @@ CSS 通常的来源有：Author 开发人员编写、User 用户自定义、Brow
 ### Flex Box Properties
 
 ![flex box properties](./images/flexbox-properties.png)
+
+## 常用的 css pseudo-class 选择器
+
+#### `:root` 匹配文档树的根元素。
+
+使用 `:root` 选择器可以定义全局的 CSS 变量，这些变量可以在整个文档中使用，并且可以通过`var()`函数来引用。
+
+#### `:hover` 匹配鼠标悬停在元素上的元素。
+
+#### `:focus` 匹配获得焦点的元素。
+
+#### `:link` 匹配未访问过的链接元素。
+
+#### `:visited` 匹配已访问过的链接元素。
+
+#### `:active` 匹配被激活的元素。
