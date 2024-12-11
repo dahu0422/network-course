@@ -54,6 +54,17 @@ npx create-react-app my-app // 创建一个新的 React 项目
 npm create vite@latest my-react-app --template react
 ```
 
+## `<React.strictMode>`
+`<React.strictMode>` 是 React 提供的一个工具组件，用于突出显示应用程序中的潜在问题。不会渲染任何可见的UI，而是对其内部的所有组件执行额外的检查和警告。
+
+`<React.strictMode>`可以帮助发现以下问题: 
+- 识别不安全的生命周期方法：在未来的 React 版本中，某些不安全的生命周期方法可能会被弃用。
+- 关于副作用的警告：帮助你在组件挂载之前检测意外的副作用。
+- 关于过时 API 的警告：提醒你使用过时的 API。
+- 检测意外的副作用：确保组件在开发模式下不会产生意外的副作用。
+- 检测遗留字符串 ref API 的使用：帮助你迁移到新的 ref API。
+- 检测不稳定的 key：帮助你检测在列表中使用不稳定 key 的情况。
+
 ## COMPONENTS AS BUILDING BLOCKS
 ![components as building blocks](./images/components-as-building-blocks-1.png)
 
@@ -84,15 +95,44 @@ npm create vite@latest my-react-app --template react
 ### 单向数据流 One-Way data flow
 ![one-way data flow](./images/props/one-way-data-flow.png)
 
-## `<React.strictMode>`
-`<React.strictMode>` 是 React 提供的一个工具组件，用于突出显示应用程序中的潜在问题。不会渲染任何可见的UI，而是对其内部的所有组件执行额外的检查和警告。
+## Rule of JSX
 
-`<React.strictMode>`可以帮助发现以下问题: 
-- 识别不安全的生命周期方法：在未来的 React 版本中，某些不安全的生命周期方法可能会被弃用。
-- 关于副作用的警告：帮助你在组件挂载之前检测意外的副作用。
-- 关于过时 API 的警告：提醒你使用过时的 API。
-- 检测意外的副作用：确保组件在开发模式下不会产生意外的副作用。
-- 检测遗留字符串 ref API 的使用：帮助你迁移到新的 ref API。
-- 检测不稳定的 key：帮助你检测在列表中使用不稳定 key 的情况。
+![rules of JSX](./images/rules-of-jsx.png)
+
+### general jsx rules
+
+- JSX 类似于 HTML，使用 `{}` 进入 `JavaScript` 模式；
+
+- 我们可以将 `JavaScript` 表达式放在 `{}` 中。例如：引用变量、创建数组或对象、[].map() 、三元运算符...
+
+- 不允许使用 `if/else`、`for`、`switch`
+
+- JSX 生成一个 JavaScript 表达式
+    - 可以在 `{}` 里面放置其他 JSX 片段
+    - 可以在组件内的任何地方编写 JSX
+
+- 一段 JSX 只能有一个根元素，如果需要更多使用 `<React.Frament>`
+
+### difference between JSX and HTML
+
+- `className` 代替 HTML 中的 `class`
+
+- 每个标签都需要闭合
+
+- 事件和属性使用驼峰命名：`onMouseOver`、`onClick`。例如：aria-*和data-*像 HTML 一样用破折号写
+
+- CSS 属性名也使用驼峰命名
+
+- 注释需要在 `{}` 因为是 `JS`
+
+## `<React.Fragment>`
+
+`<Frament>` 允许你在不向 DOM 添加额外节点的情况下，将子元素分组。因为 `JSX` 要求只能返回一个根元素。
+
+## Working With Components, Props, and JSX Summary
+
+![summary](./images/section-summary-1.png)
+
+
 
 
