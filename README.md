@@ -1,3 +1,5 @@
+# A First Look at React
+
 ## WHAT IS REACT?
 
 ![react intro](./images/what-is-react/react-intro.png)
@@ -53,6 +55,8 @@ npx create-react-app my-app // 创建一个新的 React 项目
 ```bash
 npm create vite@latest my-react-app --template react
 ```
+
+# Working With Components, Props and JSX
 
 ## `<React.strictMode>`
 `<React.strictMode>` 是 React 提供的一个工具组件，用于突出显示应用程序中的潜在问题。不会渲染任何可见的UI，而是对其内部的所有组件执行额外的检查和警告。
@@ -129,10 +133,12 @@ npm create vite@latest my-react-app --template react
 
 `<Frament>` 允许你在不向 DOM 添加额外节点的情况下，将子元素分组。因为 `JSX` 要求只能返回一个根元素。
 
-## Working With Components, Props, and JSX Summary
+## Summary
 
 ![summary](./images/section-summary-1.png)
 
 
 
 
+
+# State, Events, and Forms: Interactive Components
