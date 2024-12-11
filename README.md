@@ -142,3 +142,13 @@ npm create vite@latest my-react-app --template react
 
 
 # State, Events, and Forms: Interactive Components
+
+## What is State
+
+![state](./images/what-is-state/state-1.png)
+
+![state](./images/what-is-state/state-2.png)
+
+![state](./images/what-is-state/state-3.png)
+
+![state](./images/what-is-state/state-4.png)
