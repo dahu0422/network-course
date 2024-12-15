@@ -145,6 +145,8 @@ npm create vite@latest my-react-app --template react
 
 ## What is State
 
+- State 相当于组件的大脑，可以记忆
+
 ![state](./images/what-is-state/state-1.png)
 
 ![state](./images/what-is-state/state-2.png)
@@ -152,3 +154,12 @@ npm create vite@latest my-react-app --template react
 ![state](./images/what-is-state/state-3.png)
 
 ![state](./images/what-is-state/state-4.png)
+
+## The mechanics of state
+![mechanics of state](./images/mechanics-of-state/mechanics-of-state-1.png)
+
+![mechanics of state](./images/mechanics-of-state/mechanics-of-state-2.png)
+
+![mechanics of state](./images/mechanics-of-state/mechanics-of-state-3.png)
+
+![mechanics of state](./images/mechanics-of-state/mechanics-of-state-4.png)
