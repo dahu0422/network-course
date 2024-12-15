@@ -163,3 +163,22 @@ npm create vite@latest my-react-app --template react
 ![mechanics of state](./images/mechanics-of-state/mechanics-of-state-3.png)
 
 ![mechanics of state](./images/mechanics-of-state/mechanics-of-state-4.png)
+
+# Thinking In React: State Management
+
+## Thinking In React
+![thinging in react](./images/thingking-in-react.png)
+
+## Local State VS Global State
+![local state vs global state](./images/thinking-in-react-state-management/local-state-vs-global-state.png)
+
+## State：When And Where?
+![state when and where](./images/thinking-in-react-state-management/state-when-and-where.png)
+
+## Child-To-Parent Communication
+![child to parent communication](./images/thinking-in-react-state-management/child-to-parent-communication-1.png)
+![child to parent communication](./images/thinking-in-react-state-management/child-to-parent-communication-2.png)
+![child to parent communication](./images/thinking-in-react-state-management/child-to-parent-communication-3.png)
+
+## Deriving State
+![deriving state](./images/thinking-in-react-state-management/deriving-state.png)
