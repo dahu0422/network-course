@@ -182,3 +182,6 @@ npm create vite@latest my-react-app --template react
 
 ## Deriving State
 ![deriving state](./images/thinking-in-react-state-management/deriving-state.png)
+
+## The Children Prop
+![the-children-prop](./images/thinking-in-react-state-management/children-prop.png)
