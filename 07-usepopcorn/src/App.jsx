@@ -86,7 +86,6 @@ function Navbar({ children }) {
   </nav>
 }
 
-
 // 左侧电影列表
 function Movie({ movie }) {
   return (
@@ -179,13 +178,9 @@ function Box({ children }) {
   )
 }
 
-
-
 function Main({ children }) {
   return <main className="main">{children}</main>;
 }
-
-
 
 function WatchedMoviesList({ watched }) {
   return (
@@ -195,7 +190,6 @@ function WatchedMoviesList({ watched }) {
   )
 }
 
-
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
@@ -203,7 +197,6 @@ export default function App() {
   return (
     <>
       <Navbar>
-
         <Search />
         <NumsResults />
       </Navbar>
