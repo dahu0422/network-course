@@ -185,3 +185,10 @@ npm create vite@latest my-react-app --template react
 
 ## The Children Prop
 ![the-children-prop](./images/thinking-in-react-state-management/children-prop.png)
+
+# Effects and Data Fetching 
+
+## Component Lifecycle
+![components-lifecycle](./images/effects-and-data-fetching/component-lifecycle.png)
+
+## 

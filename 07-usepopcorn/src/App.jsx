@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tempMovieData = [
   {
@@ -48,6 +48,62 @@ const tempWatchedData = [
 ];
 
 const average = (arr) => arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+
+const KEY = 'f84fc31d'
+const query = 'interstellar'
+
+export default function App() {
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(function () {
+    async function fetchMovie() {
+      try {
+        setIsLoading(true)
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`)
+
+        if (!res.ok) throw new Error('Something went wrong with fetching moviews')
+
+        const data = await res.json()
+
+        if (data.Response === 'False') throw new Error('Movie not fount')
+        setMovies(data.Search)
+      } catch (error) {
+        console.log(error.message)
+        setError(error.message)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchMovie()
+  }, [])
+
+
+  return (
+    <>
+      <Navbar>
+        <Search />
+        <NumsResults />
+      </Navbar>
+
+
+      <Main>
+        <Box>
+          {isLoading && <Loader />}
+          {error && <ErrorMessage message={error} />}
+          {!isLoading && !error && <MovieList movies={movies} />}
+        </Box>
+
+        <Box>
+          <WatchedSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
+        </Box>
+      </Main>
+    </>
+  )
+}
 
 function Logo() {
   return (
@@ -164,6 +220,18 @@ function WatchedMovie({ movie }) {
   )
 }
 
+function Loader() {
+  return <p className="loader">Loading...</p>
+}
+
+function ErrorMessage({ message }) {
+  return (
+    <p className="error">
+      <span>📛</span>{message}
+    </p>
+  )
+}
+
 function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -185,33 +253,8 @@ function Main({ children }) {
 function WatchedMoviesList({ watched }) {
   return (
     <ul className="list">
-      {watched.map((movie) => (<WatchedMovie movie={movie} />))}
+      {watched.map((movie) => (<WatchedMovie key={movie.imdbID} movie={movie} />))}
     </ul>
   )
 }
 
-export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
-
-  return (
-    <>
-      <Navbar>
-        <Search />
-        <NumsResults />
-      </Navbar>
-
-
-      <Main>
-        <Box>
-          <MovieList movies={movies} />
-        </Box>
-
-        <Box>
-          <WatchedSummary watched={watched} />
-          <WatchedMoviesList watched={watched} />
-        </Box>
-      </Main>
-    </>
-  )
-}
