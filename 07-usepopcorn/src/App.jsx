@@ -56,10 +56,13 @@ const KEY = 'f84fc31d'
 export default function App() {
   const [query, setQuery] = useState('inception')
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [selectedId, setSelectedId] = useState(null)
+
+  // 初始化时从 localStorage 中查询是否存在已观影列表
+  // const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(() => JSON.parse(localStorage.getItem('watched')))
 
   // useEffect(() => {
   //   console.log('After initial render')
@@ -90,6 +93,9 @@ export default function App() {
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter(movie => movie.imdbID !== id))
   }
+
+  // 将评价过得电影加入到观影列表中
+  useEffect(() => localStorage.setItem('watched', JSON.stringify(watched)), [watched]) 
 
   useEffect(
     function () {
@@ -253,6 +259,16 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     Genre: genre,
   } = movie;
 
+  // DO Not call hooks inside conditions, loops, nested functions, or after early return
+  // if(imdbRating > 8) [isTop, setIsTop] = useState(true)
+  // if(imdbRating > 8) return <p>Greatest ever!</p>
+
+  // const isTop = useState(imdbRating > 8)  invalid
+  const isTop = imdbRating > 8
+  console.log(isTop)
+
+  // const [avgRating, setAvgRating] = useState(0)
+
   function handleAdd() {
     const newWatchedMovie = {
       imdbID: selectedId,
@@ -262,8 +278,12 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       runtime: Number(runtime.split(' ').at(0)),
       userRating
     }
+
     onAddWatched(newWatchedMovie)
     onCloseMovie()
+    
+    // setAvgRating(Number(imdbRating))
+    // setAvgRating((avgRating) => (avgRating + userRating) / 2)
   }
 
   useEffect(function () {
