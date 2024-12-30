@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import StartRating from './StarRating'
+import { useEffect, useState, useRef } from "react";
 import StarRating from "./StarRating";
 
 const tempMovieData = [
@@ -54,7 +53,7 @@ const average = (arr) => arr.reduce((acc, cur, i, arr) => acc + cur / arr.length
 const KEY = 'f84fc31d'
 
 export default function App() {
-  const [query, setQuery] = useState('inception')
+  const [query, setQuery] = useState('')
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -95,7 +94,7 @@ export default function App() {
   }
 
   // 将评价过得电影加入到观影列表中
-  useEffect(() => localStorage.setItem('watched', JSON.stringify(watched)), [watched]) 
+  useEffect(() => localStorage.setItem('watched', JSON.stringify(watched)), [watched])
 
   useEffect(
     function () {
@@ -187,6 +186,23 @@ function Logo() {
 }
 
 function Search({ query, setQuery }) {
+  const inputEl = useRef(null)
+
+  useEffect(() => {
+    function callback(e) {
+
+      if (document.activeElement === inputEl.current) return
+
+      if (e.code === 'Enter') {
+        inputEl.current.focus()
+        setQuery('')
+      }
+    }
+
+    document.addEventListener('keydown', callback)
+    return () => document.addEventListener('keydown', callback)
+  }, [setQuery])
+
   return (
     <input
       className="search"
@@ -194,6 +210,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   )
 }
@@ -243,6 +260,13 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [isLoading, setIsLoading] = useState(false)
   const [userRating, setUserRating] = useState('')
 
+  const countRef = useRef(0)
+  let count = 0
+  useEffect(() => {
+    if(userRating) countRef.current += 1
+    if(userRating) count++
+  }, [userRating])
+
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId)
   const watchedUserRating = watched.find((movie) => movie.imdbID === selectedId)?.userRating
 
@@ -276,12 +300,14 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       year, poster,
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(' ').at(0)),
-      userRating
+      userRating,
+      countRatingDecisions: countRef.current,
+      count
     }
 
     onAddWatched(newWatchedMovie)
     onCloseMovie()
-    
+
     // setAvgRating(Number(imdbRating))
     // setAvgRating((avgRating) => (avgRating + userRating) / 2)
   }

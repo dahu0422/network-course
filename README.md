@@ -137,10 +137,6 @@ npm create vite@latest my-react-app --template react
 
 ![summary](./images/section-summary-1.png)
 
-
-
-
-
 # State, Events, and Forms: Interactive Components
 
 ## What is State
@@ -191,4 +187,22 @@ npm create vite@latest my-react-app --template react
 ## Component Lifecycle
 ![components-lifecycle](./images/effects-and-data-fetching/component-lifecycle.png)
 
-## 
+# Custom Hooks, Refs, and More State
+
+## What Are React Hooks 
+![what-are-react-hooks](./images/custome-hooks-refs-and-more-state/what-are-react-hooks.png)
+
+![overview of all built-in hooks](./images/custome-hooks-refs-and-more-state/all-built-in-hooks.png)
+
+## The Rules of Hooks
+![the-rule-of-hooks](./images/custome-hooks-refs-and-more-state/the-rules-of-hooks.png)
+
+## Hooks Rely On Call Order
+![hooks-rely-on-call-order](./images/custome-hooks-refs-and-more-state/hooks-rely-on-call-order.png)
+
+![hooks-rely-on-call-order](./images/custome-hooks-refs-and-more-state/hooks-rely-on-call-order2.png)
+
+## What are Refs
+![what-are-refs](./images/custome-hooks-refs-and-more-state/what-are-refs.png)
+
+![state-vs-refs](./images/custome-hooks-refs-and-more-state/state-vs-refs.png)
