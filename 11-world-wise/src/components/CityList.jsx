@@ -5,11 +5,6 @@ import Message from "./Message"
 import styles from "./CityList.module.css"
 import PropTypes from "prop-types"
 
-CityList.propTypes = {
-  cities: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-}
-
 function CityList({ cities, isLoading }) {
   if (isLoading) return <Spinner />
 
@@ -24,6 +19,11 @@ function CityList({ cities, isLoading }) {
       ))}
     </ul>
   )
+}
+
+CityList.propTypes = {
+  cities: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default CityList

@@ -1,14 +1,6 @@
 import styles from "./CityItem.module.css"
 import PropTypes from "prop-types"
 
-CityItem.propTypes = {
-  city: PropTypes.shape({
-    cityName: PropTypes.string.isRequired,
-    emoji: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  }).isRequired,
-}
-
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -27,6 +19,14 @@ function CityItem({ city }) {
       <button className={styles.deleteBtn}>&times;</button>
     </li>
   )
+}
+
+CityItem.propTypes = {
+  city: PropTypes.shape({
+    cityName: PropTypes.string.isRequired,
+    emoji: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 export default CityItem
