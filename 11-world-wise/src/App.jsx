@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom"
 import { useEffect, useState } from "react"
 
 import AppLayout from "./page/AppLayout"
@@ -41,10 +46,7 @@ export default function App() {
         <Route path="Product" element={<Product />}></Route>
         <Route path="Login" element={<Login />}></Route>
         <Route path="app" element={<AppLayout />}>
-          <Route
-            index
-            element={<CityList cities={cities} isLoading={isLoading} />}
-          ></Route>
+          <Route index element={<Navigate replace to="cities" />}></Route>
           <Route
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
