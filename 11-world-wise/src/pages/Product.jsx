@@ -1,3 +1,11 @@
+import PageNav from '@/components/PageNav'
+
 export default function Product() {
-    return 'Product'
+
+    return (
+        <>
+            <PageNav />
+            <div>'Product'</div>
+        </>
+    )
 }

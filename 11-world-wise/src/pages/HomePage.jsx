@@ -1,3 +1,11 @@
+import PageNav from '@/components/PageNav'
+
 export default function HomePage() {
-    return 'HomePage'
+
+    return (
+        <>
+            <PageNav />
+            <div>'HomePage'</div>
+        </>
+    )
 }
