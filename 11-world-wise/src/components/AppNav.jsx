@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
-import styles from './PageNav.module.css'
+import styles from './AppNav.module.css'
 
-export default function PageNav() {
+export default function AppNav() {
     return (
         <nav className={styles.nav}>
             <ul>

@@ -1,0 +1,19 @@
+.nav {
+    background-color: orangered;
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* css module 定义全局样式 */
+/* :global(.test) {
+    background-color: orangered;
+} */
+
+.nav :global(.active) {
+    background-color: green
+}
