@@ -1,4 +1,4 @@
-import {useCities} from '@/contexts/CitiesContext'
+import { useCities } from '@/contexts/CitiesContext'
 
 import styles from "./CountryList.module.css"
 
