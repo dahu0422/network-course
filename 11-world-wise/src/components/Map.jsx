@@ -1,14 +1,23 @@
-// import { useParams, useSearchParams } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import { useState, useEffect, useRef } from "react"
 import { useCities } from "@/contexts/CitiesContext"
 import AMapLoader from "@amap/amap-jsapi-loader"
 
 import styles from "./Map.module.css"
 
 export default function Map() {
-  let map = null
+  const mapRef = useRef(null)
+  const navigate = useNavigate()
   const { cities } = useCities()
-  console.log(cities)
+  const [mapPosition, setMapPosition] = useState({ lat: 0, lng: 0 })
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const mapLat = searchParams.get("lat")
+  const mapLng = searchParams.get("lng")
+
+  function detectClick({ lat, lng }) {
+    navigate(`form?lat=${lat}&lng=${lng}`)
+  }
 
   useEffect(() => {
     if (cities.length === 0) return // 如果 cities 为空，则不执行地图初始化逻辑
@@ -21,11 +30,17 @@ export default function Map() {
       plugins: [],
     })
       .then((AMap) => {
-        map = new AMap.Map("mapContainer", {
+        mapRef.current = new AMap.Map("mapContainer", {
           viewMode: "3D",
           zoom: 11,
-          center: [116.3912757, 39.906217],
+          center: [
+            mapPosition.lat || 116.3912757,
+            mapPosition.lng || 39.906217,
+          ],
         })
+        mapRef.current.on("click", (e) =>
+          detectClick({ lat: e.lnglat.lat, lng: e.lnglat.lng })
+        )
         //构造点标记
         cities.forEach((city) => {
           const { lat, lng } = city.position
@@ -34,16 +49,23 @@ export default function Map() {
             position: [lng, lat],
           })
           //单独将点标记和矢量圆形添加到地图上
-          map.add(marker)
+          mapRef.current.add(marker)
         })
       })
       .catch((e) => {
         console.log(e)
       })
     return () => {
-      map?.destroy()
+      mapRef.current?.destroy()
     }
-  }, [cities]) // 添加 cities 作为依赖项
+  }, [cities])
+
+  useEffect(() => {
+    if (mapRef.current && mapLng && mapLat) {
+      mapRef.current.setCenter([mapLng, mapLat])
+      if (mapLat && mapLng) setMapPosition({ lat: mapLat, lng: mapLng })
+    }
+  }, [mapLng, mapLat]) // 添加一个新的 useEffect 钩子来监听 mapLng 和 mapLat 的变化
 
   return <div className={styles.mapContainer} id="mapContainer" />
 }
