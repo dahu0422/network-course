@@ -1,7 +1,11 @@
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
+import { useGeolocation } from "@/hooks/useGeolocation"
+import useUrlPosition from "@/hooks/useUrlPosition"
 import { useCities } from "@/contexts/CitiesContext"
+
 import AMapLoader from "@amap/amap-jsapi-loader"
+import Button from "@/components/Button"
 
 import styles from "./Map.module.css"
 
@@ -10,10 +14,12 @@ export default function Map() {
   const navigate = useNavigate()
   const { cities } = useCities()
   const [mapPosition, setMapPosition] = useState({ lat: 0, lng: 0 })
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const mapLat = searchParams.get("lat")
-  const mapLng = searchParams.get("lng")
+  const {
+    isLoading: isLoadingPosition,
+    position: geolocationPosition,
+    getPosition,
+  } = useGeolocation()
+  const [mapLat, mapLng] = useUrlPosition()
 
   function detectClick({ lat, lng }) {
     navigate(`form?lat=${lat}&lng=${lng}`)
@@ -60,12 +66,31 @@ export default function Map() {
     }
   }, [cities])
 
+  // 当 mapLat 或 mapLng 变化时，设置地图中心点
   useEffect(() => {
     if (mapRef.current && mapLng && mapLat) {
       mapRef.current.setCenter([mapLng, mapLat])
       if (mapLat && mapLng) setMapPosition({ lat: mapLat, lng: mapLng })
     }
-  }, [mapLng, mapLat]) // 添加一个新的 useEffect 钩子来监听 mapLng 和 mapLat 的变化
+  }, [mapLng, mapLat])
 
-  return <div className={styles.mapContainer} id="mapContainer" />
+  useEffect(() => {
+    if (geolocationPosition) {
+      mapRef.current.setCenter([
+        geolocationPosition.lng,
+        geolocationPosition.lat,
+      ])
+    }
+  }, [geolocationPosition])
+
+  return (
+    <div className={styles.mapContainer}>
+      {!geolocationPosition && (
+        <Button onClick={getPosition} type="position">
+          {isLoadingPosition ? "Loading..." : "Use Your Position"}
+        </Button>
+      )}
+      <div style={{ height: "100%" }} id="mapContainer"></div>
+    </div>
+  )
 }
