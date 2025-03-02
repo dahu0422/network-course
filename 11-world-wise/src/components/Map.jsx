@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { useGeolocation } from "@/hooks/useGeolocation"
 import useUrlPosition from "@/hooks/useUrlPosition"
