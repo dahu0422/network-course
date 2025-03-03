@@ -10,15 +10,13 @@ import Button from "@/components/Button"
 import styles from "./Map.module.css"
 
 export default function Map() {
-  const mapRef = useRef(null)
   const navigate = useNavigate()
+  const mapRef = useRef(null)
   const { cities } = useCities()
+  const [mapInstance, setMapInstance] = useState(null); // 地图实例
+  const [markerInstances, setMarkerInstances] = useState([]); // 覆盖物实例
   const [mapPosition, setMapPosition] = useState({ lat: 0, lng: 0 })
-  const {
-    isLoading: isLoadingPosition,
-    position: geolocationPosition,
-    getPosition,
-  } = useGeolocation()
+  const { isLoading: isLoadingPosition, position: geolocationPosition, getPosition } = useGeolocation()
   const [mapLat, mapLng] = useUrlPosition()
 
   function detectClick({ lat, lng }) {
@@ -26,62 +24,73 @@ export default function Map() {
   }
 
   useEffect(() => {
-    if (cities.length === 0) return // 如果 cities 为空，则不执行地图初始化逻辑
     window._AMapSecurityConfig = {
       securityJsCode: "8679ae5f87fcadc81fd97be150999c52",
     }
+
     AMapLoader.load({
       key: "2ef4a96cfd68274daf2efe76a3092656",
       version: "2.0",
       plugins: [],
     })
       .then((AMap) => {
-        mapRef.current = new AMap.Map("mapContainer", {
+        const map = new AMap.Map(mapRef.current, {
           viewMode: "3D",
           zoom: 11,
-          center: [
-            mapPosition.lat || 116.3912757,
-            mapPosition.lng || 39.906217,
-          ],
+          center: [ mapPosition.lng || 116.3912757, mapPosition.lat || 39.906217 ],
         })
-        mapRef.current.on("click", (e) =>
+        setMapInstance(map);
+
+        map.on("click", (e) =>
           detectClick({ lat: e.lnglat.lat, lng: e.lnglat.lng })
         )
-        //构造点标记
-        cities.forEach((city) => {
-          const { lat, lng } = city.position
-          var marker = new AMap.Marker({
-            icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-            position: [lng, lat],
-          })
-          //单独将点标记和矢量圆形添加到地图上
-          mapRef.current.add(marker)
-        })
       })
       .catch((e) => {
         console.log(e)
       })
     return () => {
-      mapRef.current?.destroy()
+      mapInstance?.destroy()
     }
-  }, [cities])
+  }, [])
+
+  // 更新覆盖物
+  useEffect(() => {
+    if(!mapInstance || !cities) return
+
+    // 清除旧覆盖物
+    markerInstances.forEach((marker) => {
+      mapInstance.remove(marker)
+    })
+
+    // 添加新的覆盖物
+    const newMarkers = cities.map((city) => {
+      const {lat, lng} = city.position
+      return new AMap.Marker({
+        icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+        position: [lng, lat],
+      })
+    })
+
+    // 将覆盖物添加到地图上
+    newMarkers.forEach((marker) => mapInstance.add(marker))
+
+    // 更新覆盖物实例
+    setMarkerInstances(newMarkers);
+  }, [cities, mapInstance])
 
   // 当 mapLat 或 mapLng 变化时，设置地图中心点
   useEffect(() => {
-    if (mapRef.current && mapLng && mapLat) {
-      mapRef.current.setCenter([mapLng, mapLat])
+    if (mapInstance && mapLng && mapLat) {
+      mapInstance.setCenter([mapLng, mapLat])
       if (mapLat && mapLng) setMapPosition({ lat: mapLat, lng: mapLng })
     }
   }, [mapLng, mapLat])
 
   useEffect(() => {
     if (geolocationPosition) {
-      mapRef.current.setCenter([
-        geolocationPosition.lng,
-        geolocationPosition.lat,
-      ])
+      mapInstance.setCenter([ geolocationPosition.lng, geolocationPosition.lat])
     }
-  }, [geolocationPosition])
+  }, [geolocationPosition, mapInstance])
 
   return (
     <div className={styles.mapContainer}>
@@ -90,7 +99,7 @@ export default function Map() {
           {isLoadingPosition ? "Loading..." : "Use Your Position"}
         </Button>
       )}
-      <div style={{ height: "100%" }} id="mapContainer"></div>
+      <div style={{ height: "100%" }} ref={mapRef}></div>
     </div>
   )
 }
