@@ -1,12 +1,11 @@
-import { useParams, useSearchParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useEffect } from "react"
-import { useCities } from '@/contexts/CitiesContext'
+import { useCities } from "@/contexts/CitiesContext"
 
-import Spinner from '@/components/Spinner'
-import BackButton from '@/components/BackButton'
+import Spinner from "@/components/Spinner"
+import BackButton from "@/components/BackButton"
 
 import styles from "./City.module.css"
-
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -22,11 +21,11 @@ function City() {
 
   useEffect(() => {
     getCity(id)
-  }, [id])
+  }, [id, getCity]) // 添加 getCity 到依赖项数组
 
   const { cityName, emoji, date, notes } = currentCity
 
-  if(isLoading) return <Spinner />
+  if (isLoading) return <Spinner />
 
   return (
     <div className={styles.city}>
@@ -64,7 +63,7 @@ function City() {
         <BackButton />
       </div>
     </div>
-  );
+  )
 }
 
 export default City
