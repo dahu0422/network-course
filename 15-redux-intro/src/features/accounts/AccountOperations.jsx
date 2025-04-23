@@ -12,7 +12,7 @@ function AccountOperations() {
   const dispatch = useDispatch()
   const {
     loan: currentLoan,
-    loadPurpose: currentLoanPurpose,
+    loanPurpose: currentLoanPurpose,
     balance,
     isLoading,
   } = useSelector((state) => state.account)
