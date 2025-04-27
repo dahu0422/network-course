@@ -10,7 +10,7 @@ import CreateOrder, {
 } from "./features/order/CreateOrder"
 import Order, { loader as orderLoader } from "./features/order/Order"
 
-import "./App.css"
+// import "./App.css"
 
 const router = createBrowserRouter([
   {
