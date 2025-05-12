@@ -1,8 +1,8 @@
 export default function Account() {
   return (
     <div>
-      <h1>About</h1>
-      <p>Welcome to the about page!</p>
+      <h1>Account</h1>
+      <p>Welcome to the Account page!</p>
     </div>
   );
 }
