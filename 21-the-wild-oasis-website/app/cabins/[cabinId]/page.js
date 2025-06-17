@@ -1,19 +1,7 @@
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
-import { getCabin } from "@/app/_lib/data-service";
+import { getCabin, getCabins } from "@/app/_lib/data-service";
 import Image from "next/image";
-
-// PLACEHOLDER DATA
-// const cabin = {
-//   id: 89,
-//   name: "001",
-//   maxCapacity: 2,
-//   regularPrice: 250,
-//   discount: 0,
-//   description:
-//     "Discover the ultimate luxury getaway for couples in the cozy wooden cabin 001. Nestled in a picturesque forest, this stunning cabin offers a secluded and intimate retreat. Inside, enjoy modern high-quality wood interiors, a comfortable seating area, a fireplace and a fully-equipped kitchen. The plush king-size bed, dressed in fine linens guarantees a peaceful nights sleep. Relax in the spa-like shower and unwind on the private deck with hot tub.",
-//   image:
-//     "https://dclaevazetcjjkrzczpc.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg",
-// };
+import TextExpander from "@/app/_components/TextExpander";
 
 export async function generateMetadata({ params }) {
   const { cabinId } = await params;
@@ -22,6 +10,14 @@ export async function generateMetadata({ params }) {
     title: `Cabin ${cabin.name}`,
   };
 }
+
+export async function generateStaticParams() {
+  const cabins = await getCabins();
+  return cabins.map((cabin) => ({
+    cabinId: cabin.id.toString(),
+  }));
+}
+
 
 export default async function Page({ params }) {
   const { cabinId } = await params;
@@ -40,7 +36,9 @@ export default async function Page({ params }) {
             Cabin {name}
           </h3>
 
-          <p className="text-lg text-primary-300 mb-10">{description}</p>
+          <p className="text-lg text-primary-300 mb-10">
+            <TextExpander>{description}</TextExpander>
+          </p>
 
           <ul className="flex flex-col gap-4 mb-7">
             <li className="flex gap-3 items-center">
